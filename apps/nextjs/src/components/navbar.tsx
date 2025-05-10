@@ -1,11 +1,15 @@
 "use client";
 
 import clsx from "clsx";
-import Link from "next/link";
+
 import { usePathname } from "next/navigation";
+
+import { Fragment } from "react";
+import Link from "next/link";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const pathnameSlices = pathname.split("/");
 
   return (
     <header className="fixed top-0 left-0 right-0 mx-auto w-full max-w-5xl flex justify-center">
@@ -25,24 +29,33 @@ const Navbar = () => {
                 quria-playground
               </span>
             </Link>
-            {pathname !== "/" && (
-              <>
-                <span className="text-[#F4F0E6] ml-1 md:text-lg tracking-wide">
-                  /
-                </span>
-                <Link
-                  href={pathname}
-                  className={clsx(
-                    "md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer transition-colors",
-                    pathname === pathname
-                      ? "font-bold"
-                      : "font-normal hover:text-[#F4F0E6]/80",
-                  )}
-                >
-                  {pathname.replace("/", "")}
-                </Link>
-              </>
-            )}
+            {pathname !== "/" &&
+              pathnameSlices.map((slice, index) => {
+                // Skip the first slice (empty string)
+                if (index === 0) return null;
+
+                // Get the path for the current slice
+                const path = `/${pathnameSlices.slice(1, index + 1).join("/")}`;
+
+                return (
+                  <Fragment key={path}>
+                    <span className="text-[#F4F0E6] ml-1 md:text-lg tracking-wide">
+                      /
+                    </span>
+                    <Link
+                      href={path}
+                      className={clsx(
+                        "md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer transition-colors",
+                        pathname === path
+                          ? "font-bold"
+                          : "font-normal hover:text-[#F4F0E6]/80",
+                      )}
+                    >
+                      {slice}
+                    </Link>
+                  </Fragment>
+                );
+              })}
           </div>
         </div>
       </nav>
