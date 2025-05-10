@@ -1,0 +1,3 @@
+[submodule "packages/quria"]
+	path = packages/quria
+	url = https://github.com/FraWolf/quria
