@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -13,23 +14,30 @@ const Navbar = () => {
           <div className="flex space-x-1 sm:space-x-2">
             <Link
               href="/"
-              className="md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer font-normal"
-            >
-              ~
-              {pathname === "/" && (
-                <span className="ml-1 md:text-lg tracking-wide">
-                  quria-playground
-                </span>
+              className={clsx(
+                "md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer",
+                pathname === "/" ? "font-bold" : "font-normal",
               )}
+            >
+              <span className="ml-1 md:text-lg tracking-wide">
+                quria-playground
+              </span>
             </Link>
             {pathname !== "/" && (
-              <Link
-                href={pathname}
-                className="md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer font-normal"
-              >
-                <span className="text-[#F4F0E6]">/</span>&nbsp;
-                {pathname.replace("/", "")}
-              </Link>
+              <>
+                <span className="text-[#F4F0E6] ml-1 md:text-lg tracking-wide">
+                  /
+                </span>
+                <Link
+                  href={pathname}
+                  className={clsx(
+                    "md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer",
+                    pathname === pathname ? "font-bold" : "font-normal",
+                  )}
+                >
+                  {pathname.replace("/", "")}
+                </Link>
+              </>
             )}
           </div>
         </div>
