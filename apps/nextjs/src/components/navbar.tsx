@@ -28,7 +28,7 @@ const Navbar = () => {
                 className="md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer font-normal"
               >
                 <span className="text-[#F4F0E6]">/</span>&nbsp;
-                {pathname.charAt(1).toUpperCase() + pathname.slice(2)}
+                {pathname.replace("/", "")}
               </Link>
             )}
           </div>
