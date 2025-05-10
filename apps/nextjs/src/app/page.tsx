@@ -4,8 +4,8 @@ import { routes } from "@/data/routes";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center p-8 md:p-24">
-      <div className="text-center mb-12 max-w-2xl">
+    <div className="flex flex-col items-center justify-center">
+      <div className="text-center mt-8 mb-12 max-w-2xl">
         <p className="text-xl text-white/80 mb-4">
           Welcome to the Next.js Quria Playground. Please select one of the test
           pages below to explore different features.
@@ -54,6 +54,6 @@ export default function Home() {
           </Link>
         ))}
       </div>
-    </main>
+    </div>
   );
 }
