@@ -15,8 +15,10 @@ const Navbar = () => {
             <Link
               href="/"
               className={clsx(
-                "md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer hover:text-[#F4F0E6]/80 transition-colors",
-                pathname === "/" ? "font-bold" : "font-normal",
+                "md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer transition-colors",
+                pathname === "/"
+                  ? "font-bold"
+                  : "font-normal hover:text-[#F4F0E6]/80",
               )}
             >
               <span className="ml-1 md:text-lg tracking-wide">
@@ -31,8 +33,10 @@ const Navbar = () => {
                 <Link
                   href={pathname}
                   className={clsx(
-                    "md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer hover:text-[#F4F0E6]/80 transition-colors",
-                    pathname === pathname ? "font-bold" : "font-normal",
+                    "md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer transition-colors",
+                    pathname === pathname
+                      ? "font-bold"
+                      : "font-normal hover:text-[#F4F0E6]/80",
                   )}
                 >
                   {pathname.replace("/", "")}
