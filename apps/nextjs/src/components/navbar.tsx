@@ -15,7 +15,7 @@ const Navbar = () => {
             <Link
               href="/"
               className={clsx(
-                "md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer",
+                "md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer hover:text-[#F4F0E6]/80 transition-colors",
                 pathname === "/" ? "font-bold" : "font-normal",
               )}
             >
@@ -31,7 +31,7 @@ const Navbar = () => {
                 <Link
                   href={pathname}
                   className={clsx(
-                    "md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer",
+                    "md:text-lg tracking-wide text-[#F4F0E6] cursor-pointer hover:text-[#F4F0E6]/80 transition-colors",
                     pathname === pathname ? "font-bold" : "font-normal",
                   )}
                 >
