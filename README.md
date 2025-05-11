@@ -65,6 +65,16 @@ QURIA_CLIENT_SECRET=your_client_secret
 
 You can obtain these values by registering an application on the [Bungie Developer Portal](https://www.bungie.net/en/Application).
 
+If you are working with a local version of the Quria package, you need to add the following dependency format in your application's package.json:
+
+```json
+"dependencies": {
+    "quria": "workspace:*"
+}
+```
+
+This instructs PNPM to use the local workspace version of Quria instead of the one from the npm registry, enabling seamless local development and testing.
+
 ## License
 
 The Quria package is released under the MIT license.
