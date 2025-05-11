@@ -1,13 +1,23 @@
 "use client";
 
 import { quriaCSR } from "@/lib/quria";
+import { TokenResponse } from "quria";
+import clsx from "clsx";
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { PageHead } from "@/components/page";
-import { TokenResponse } from "quria";
-import clsx from "clsx";
+
+import {
+  Block,
+  BlockCode,
+  BlockContent,
+  BlockKey,
+  BlockSeparator,
+  BlockTitle,
+  BlockValue,
+} from "@/components/block";
 
 export default function BtoaCSR() {
   const searchParams = useSearchParams();
@@ -99,35 +109,26 @@ export default function BtoaCSR() {
         ) : (
           <div className="mt-16 w-full max-w-2xl">
             {oauthCode && oauthCode !== "" && (
-              <div className="mt-4 p-4 bg-gray-800 rounded-lg text-green-400 font-mono overflow-x-auto w-full">
-                <div className="text-sm text-gray-400 mb-1">OAuth Code:</div>
-                <code className="break-all">{oauthCode}</code>
-              </div>
+              <Block>
+                <BlockTitle>OAuth Code:</BlockTitle>
+                <BlockValue>{oauthCode}</BlockValue>
+              </Block>
             )}
             {oauthState && (
-              <div className="mt-4 p-4 bg-gray-800 rounded-lg font-mono overflow-x-auto w-full">
-                <div className="text-sm text-gray-400 mb-1">
-                  OAuth Response:
-                </div>
-                <pre className="overflow-auto max-h-96 w-full bg-gray-900 rounded-lg p-4">
-                  <code className="break-all whitespace-pre-wrap">
-                    {Object.entries(oauthState).map(([key, value]) => (
-                      <div key={key}>
-                        <span className="text-pink-400">{`"${key}"`}</span>
-                        <span className="text-gray-400">: </span>
-                        <span className="text-green-400">
-                          {typeof value === "string"
-                            ? `"${value}"`
-                            : typeof value === "object" && value !== null
-                              ? JSON.stringify(value, null, 2)
-                              : String(value)}
-                        </span>
-                        <span className="text-gray-400">,</span>
-                      </div>
-                    ))}
-                  </code>
-                </pre>
-              </div>
+              <Block>
+                <BlockTitle>OAuth Response:</BlockTitle>
+                <BlockContent>
+                  {Object.entries(oauthState).map(([key, value]) => (
+                    <div key={key}>
+                      <BlockCode>
+                        <BlockKey>{key}</BlockKey>
+                        <BlockValue>{value}</BlockValue>
+                        <BlockSeparator />
+                      </BlockCode>
+                    </div>
+                  ))}
+                </BlockContent>
+              </Block>
             )}
           </div>
         )}
