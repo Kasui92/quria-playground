@@ -7,15 +7,15 @@ interface Route {
 
 export const routes: Route[] = [
   {
-    title: "btoa SSR",
-    description: "Server-side rendering for OAuth with btoa",
-    path: "/btoa-ssr",
+    title: "OAuth SSR",
+    description: "Server-side rendering for OAuth",
+    path: "/oauth-ssr",
     icon: "/file.svg",
   },
   {
-    title: "btoa CSR",
-    description: "Client-side rendering for OAuth with btoa",
-    path: "/btoa-csr",
+    title: "OAuth CSR",
+    description: "Client-side rendering for OAuth",
+    path: "/oauth-csr",
     icon: "/file.svg",
   },
 ];
