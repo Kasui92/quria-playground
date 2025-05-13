@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write .",
     "quria": "pnpm --filter quria",
-    "nextjs": "pnpm --filter nextjs"
+    "nextjs": "pnpm --filter nextjs",
+    "react": "pnpm --filter react-vite"
   },
   "keywords": [],
   "author": "",
