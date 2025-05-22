@@ -19,34 +19,51 @@ import {
   BlockValue,
 } from "@/components/block";
 
+interface OAuthState {
+  code: string;
+  state?: TokenResponse;
+}
+
 export default function BtoaCSR() {
   const searchParams = useSearchParams();
 
   const [generating, setGenerating] = useState(false);
   const [authenticating, setAuthenticating] = useState(false);
-  const [oauthCode, setOAuthCode] = useState<string>("");
-  const [oauthState, setOAuthState] = useState<TokenResponse | null>(null);
+
+  const [oauthState, setOAuthState] = useState<OAuthState | null>(null);
+  const [code, setCode] = useState<string>("");
 
   useEffect(() => {
-    const handleAuthCallback = async () => {
+    const handleCode = () => {
       const code = searchParams.get("code");
 
       // Save the code to state if it exists
       if (code) {
-        setOAuthCode(code);
+        setCode(code);
+      }
+      // Clear the code if no code is provided
+      else {
+        setCode("");
+      }
+    };
 
-        // Remove the code from URL immediately
-        const url = new URL(window.location.href);
-        url.searchParams.delete("code");
-        window.history.replaceState({}, document.title, url.toString());
+    handleCode();
+  }, [searchParams]);
 
+  useEffect(() => {
+    const handleAuthCallback = async () => {
+      // Save the code to state if it exists
+      if (code) {
         setAuthenticating(true);
 
         try {
           const response = await quriaCSR.oauth.GetOAuthAccessToken(code);
 
           if ("access_token" in response) {
-            setOAuthState(response);
+            setOAuthState({
+              code: code,
+              state: response,
+            });
           } else {
             console.error("Error in authentication:", response);
             setOAuthState(null);
@@ -57,14 +74,11 @@ export default function BtoaCSR() {
         } finally {
           setAuthenticating(false);
         }
-      } else {
-        // Clear the oauth code if no code is provided
-        setOAuthCode("");
       }
     };
 
     handleAuthCallback();
-  }, [searchParams]);
+  }, [code]);
 
   const handleAuthenticate = async () => {
     try {
@@ -108,17 +122,17 @@ export default function BtoaCSR() {
           </div>
         ) : (
           <div className="mt-16 w-full max-w-2xl">
-            {oauthCode && oauthCode !== "" && (
+            {oauthState?.code && oauthState?.code !== "" && (
               <Block>
                 <BlockTitle>OAuth Code:</BlockTitle>
-                <BlockValue>{oauthCode}</BlockValue>
+                <BlockValue>{oauthState?.code}</BlockValue>
               </Block>
             )}
-            {oauthState && (
+            {oauthState?.state && (
               <Block>
                 <BlockTitle>OAuth Response:</BlockTitle>
                 <BlockContent>
-                  {Object.entries(oauthState).map(([key, value]) => (
+                  {Object.entries(oauthState?.state).map(([key, value]) => (
                     <div key={key}>
                       <BlockCode>
                         <BlockKey>{key}</BlockKey>
